@@ -1,0 +1,41 @@
+.my-modal {
+    background: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 2% auto;
+    width: 800px;
+    max-height: 900px;
+    box-shadow: 0 5px 10px 2px rgba(195,192,192,.5);
+    padding: 2%;
+    text-align: center;
+    overflow: auto;
+   }
+   .modal-close {
+    position: absolute;
+    right: 6px;
+    top: 9px;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+   }
+   .modal-body{
+       height: 600px;
+       overflow: auto;
+   }
+   .modal-toggle-button {
+    cursor: pointer;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+   }
+   .modal-toggle-button:focus {
+    outline: none;
+   }
