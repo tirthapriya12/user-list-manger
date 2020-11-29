@@ -9,12 +9,10 @@ import {
 }                         from '../../actions/userListAction';
 import {
     Icon,
-    Label,
-    Menu,
-    Table
-}                         from 'semantic-ui-react';          
+    Input
+}                         from 'semantic-ui-react';
+import debounce           from 'lodash.debounce';      
 import DefaultPageLayout  from '../../components/layout/default-page-layout';
-import Spinner            from '../../components/spinner/spinner';
 import UserListTable      from '../../components/user-list-table/user-list-table';
 import LoadingOverlay     from 'react-loading-overlay';
 import './dashboard.scss';
@@ -24,7 +22,8 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showLoader: false
+            showLoader: false,
+            userSearchFilter: ''
         }
     }
 
@@ -49,16 +48,16 @@ class Dashboard extends React.Component {
                 text="Please wait"
                 spinner>
                 <DefaultPageLayout headerTitle="User list" headerAction={this.headerAction()}>
-                {
-                        <UserListTable
-                            sortable
-                            users={users}
-                            headers={user_table_headers}
-                            currentPage={page}
-                            totalPages={total_pages}
-                            onPageChange={this.onPageChange}
-                            onUserDeleteClick={this.onUserDeleteClick} />
-                }
+                    <Input onChange={debounce(this.onSearchChange,250)} icon='search' placeholder='Search...' />
+                    <UserListTable
+                        sortable
+                        users={this.getFilteredUsers(users)}
+                        headers={user_table_headers}
+                        currentPage={page}
+                        totalPages={total_pages}
+                        onPageChange={this.onPageChange}
+                        onUserDeleteClick={this.onUserDeleteClick} />
+
                 </DefaultPageLayout>
             </LoadingOverlay>
         )
@@ -84,6 +83,22 @@ class Dashboard extends React.Component {
     onLogout = () => {
         this.props.logoutUser();
         this.props.history.push('/login');
+    }
+
+    onSearchChange = (e) => {
+        this.setState({ userSearchFilter: e.target.value });
+    }
+
+    getFilteredUsers(users){
+        const { userSearchFilter } = this.state;
+        if (!!userSearchFilter){
+           return users.filter((user) => {
+                return (!!user.first_name.toLowerCase().match(new RegExp(userSearchFilter)) ||
+                    !!user.last_name.toLowerCase().match(new RegExp(userSearchFilter)))
+            })
+        }else{
+            return users;
+        }
     }
 }
 
