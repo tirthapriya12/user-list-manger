@@ -11,14 +11,8 @@ export default function (state = initialState, action) {
         case types.SET_CURRENT_USER:
             return {
                 ...state,
-                isAuthenticated: !!action.payload.id,
+                isAuthenticated: !!action.payload,
                 user: action.payload
-            }
-        case types.LOGOUT_USER:
-            return {
-                ...state,
-                isAuthenticated: false,
-                user: null
             }  
         default:
             return state;

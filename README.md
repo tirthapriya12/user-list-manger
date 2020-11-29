@@ -20,5 +20,14 @@ Launches the test runner in the interactive watch mode.<br />
 
 Builds the app for production to the `build` folder.<br />
 
+\\\\\\\\\\\\\\
+This project uses scss , u might need to have python installed and added to path in environment variables so that node-sass can finish running postinstall script
 
+\\\\\\\\\\\\\\
+<br/>
+### `NOTE`
+use following credential to the user
+
+"email": "eve.holt@reqres.in",
+"password": "cityslicka"
 

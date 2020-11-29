@@ -3,8 +3,7 @@ import types            from './types';
 
 const BASE_URL = 'https://reqres.in';
 
-export const registerUser = (userData, callBack) => (dispatch) => {
-
+export const registerUser = (userData, successCallBack) => (dispatch) => {
     fetch(BASE_URL + '/api/register', {
         method: 'POST',
         body: JSON.stringify(userData),
@@ -15,7 +14,9 @@ export const registerUser = (userData, callBack) => (dispatch) => {
     })
         .then(res => res.json())
         .then((res) => {
-            typeof callBack === 'function' && callBack();
+            if (res.error) throw Error(res.error);
+
+            typeof successCallBack === 'function' && successCallBack();
         })
         .catch((err) => {
             dispatch({
@@ -26,7 +27,7 @@ export const registerUser = (userData, callBack) => (dispatch) => {
         });
 }
 
-export const loginUser = (userData, callBack) => (dispatch) => {
+export const loginUser = (userData, successCallBack) => (dispatch) => {
     fetch(BASE_URL + '/api/login', {
         method: 'POST',
         body: JSON.stringify(userData),
@@ -39,10 +40,10 @@ export const loginUser = (userData, callBack) => (dispatch) => {
         .then((res) => {
             if (res.error) throw Error(res.error);
 
-            let token = res.data.token;
+            let token = res.token;
             setAuthToken(token);
-            dispatch(setCurrentUser({ email: userData.email }))
-            typeof callBack === 'function' && callBack();
+            dispatch(setCurrentUser({ email: userData.email, token: token }))
+            typeof successCallBack === 'function' && successCallBack();
         }).catch((err) => {
             dispatch({
                 type: types.API_ERRORS,

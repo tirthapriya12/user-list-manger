@@ -11,7 +11,6 @@ const Card = ({ image, name, desc, price, onClick }) => {
                 <h4><b>{name}</b></h4>
                 <p>{desc}</p>
                 <br />
-                <p>$ {price}</p>
                 {onClick && <button onClick={onClick}>Select</button>}
                 <br />
             </div>

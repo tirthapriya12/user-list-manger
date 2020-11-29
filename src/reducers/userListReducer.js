@@ -1,17 +1,16 @@
 import types from '../actions/types';
 
 const initialState = {
-    paymentDetails: null,
-    otpCheck: 123456
+    users: []
 }
 
 export default function (state = initialState, action) {
 
     switch (action.type) {
-        case types.SET_PAYMENT:
+        case types.LIST_USERS:
             return {
                 ...state,
-                paymentDetails: action.payload,
+                users: action.payload,
             }
         default:
             return state;

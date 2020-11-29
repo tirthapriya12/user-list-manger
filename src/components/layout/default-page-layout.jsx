@@ -7,7 +7,7 @@ export default function DefaultPageLayout(props) {
 
     return (
         <React.Fragment>
-            <Header title={props.headerTitle} />
+            <Header title={props.headerTitle} headerAction={props.headerAction} />
             {props.children}
             <Footer />
         </React.Fragment>
@@ -15,5 +15,6 @@ export default function DefaultPageLayout(props) {
 }
 
 DefaultPageLayout.propTypes = {
-    headerTitle: PropTypes.string
+    headerTitle: PropTypes.string,
+    headerAction: PropTypes.element
 }
