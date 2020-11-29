@@ -10,8 +10,14 @@ export default function (state = initialState, action) {
         case types.LIST_USERS:
             return {
                 ...state,
-                users: action.payload,
+                users: action.payload.data,
+                ...action.payload
             }
+        case types.DELETE_USER:
+            return {
+                ...state,
+                users: action.payload
+            }           
         default:
             return state;
     }

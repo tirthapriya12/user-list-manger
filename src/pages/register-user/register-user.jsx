@@ -8,8 +8,9 @@ import {
     Grid,
     Icon,
     Container, 
-    Label }                          from 'semantic-ui-react';
-import { registerUser }                 from '../../actions/authAction';
+    Label 
+}                                    from 'semantic-ui-react';
+import { registerUser }              from '../../actions/authAction';
 import { connect }                   from 'react-redux';
 import { withRouter, Link }          from 'react-router-dom';
 import './register-user.scss'
@@ -30,17 +31,21 @@ class Register extends React.Component {
     
     onSubmit = (e) =>{
         const { name, email, password} = this.state;
+        this.setState({showLoader:true})
         e.preventDefault();
         this.props.registerUser({email,password},()=>{
+            this.setState({showLoader:false})
             alert('Registration successful');
             this.props.history.push('/login');
         });
     }
 
-    componentDidUpdate(){
-
+    componentDidUpdate(prevProps,prevState){
+        if(prevProps.error !== this.props.error && this.props.error instanceof Error){
+            this.setState({showLoader:false})
+        }
     }
-
+    
     render() {
         return (
             <LoadingOverlay 

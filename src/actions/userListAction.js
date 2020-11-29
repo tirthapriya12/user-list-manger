@@ -2,9 +2,9 @@ import types from './types';
 
 const BASE_URL = 'https://reqres.in';
 
-export const getUserList = () => (dispatch) => {
-
-    fetch(BASE_URL + '/api/users?page=2&delay=5')
+export const getUserList = (pageNum) => (dispatch) => {
+    pageNum = pageNum || 1;
+    fetch(BASE_URL + `/api/users?page=${pageNum}&delay=5`)
         .then(res => res.json())
         .then((res) => {
             if (res.error) throw Error(res.error);
@@ -21,4 +21,15 @@ export const getUserList = () => (dispatch) => {
 
         });
     
+}
+
+export const deleteUser = (users, id) => (dispatch) => {
+    fetch(BASE_URL + '/api/users/' + id, {
+        method: 'DELETE'
+    }).then((res) => {
+            dispatch({
+                type: types.DELETE_USER,
+                payload: users.filter((user) => user.id !== id)
+            })
+        })
 }
