@@ -9,7 +9,7 @@ No BackEnd setup is required , it uses [Reqres](https://reqres.in/)
 
 <br/>
 ### `NOTE`
-use following credential to the user
+use following credential of the user to login
 
 "email": "eve.holt@reqres.in",
 "password": "cityslicka"
